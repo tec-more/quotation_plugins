@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_relevant_standard,relevant.standard,model_relevant_standard,base.group_user,1,1,1,1
+access_software_duration,software.duration,model_software_duration,base.group_user,1,1,1,1
+access_software_quotation,software.quotation.py,model_software_quotation,base.group_user,1,1,1,1
+access_software_scale,software.scale,model_software_scale,base.group_user,1,1,1,1
+access_software_work_volume,software.work.volume,model_software_work_volume,base.group_user,1,1,1,1
