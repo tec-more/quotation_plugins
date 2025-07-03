@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_disable_enterprise_module_disable_enterprise_module,disable_enterprise_module.disable_enterprise_module,model_disable_enterprise_module_disable_enterprise_module,base.group_user,1,1,1,1
