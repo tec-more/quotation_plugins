@@ -43,16 +43,16 @@
                             <list editable="bottom"  class="full_text_display">
                                 <field name="software_scale_id" column_invisible="True" />
                                 <field name="module_id" />
-                                <field name="ilf" widget="text" column_invisible="not parent.show_function" />
-                                <field name="ilf_weight" column_invisible="not parent.show_function" />
-                                <field name="eif" column_invisible="not parent.show_function"  />
-                                <field name="eif_weight" column_invisible="not parent.show_function" />
-                                <field name="ei" column_invisible="not parent.show_function"  />
-                                <field name="ei_weight" column_invisible="not parent.show_function"  />
-                                <field name="eo" column_invisible="not parent.show_function"  />
-                                <field name="eo_weight" column_invisible="not parent.show_function" />
-                                <field name="eq" column_invisible="not parent.show_function"  />
-                                <field name="eq_weight" column_invisible="not parent.show_function"  />
+                                <field name="ilf" string="ILF" column_invisible="not parent.show_function" />
+                                <field name="ilf_weight" string="ILF 权重" column_invisible="not parent.show_function" />
+                                <field name="eif" string="EIF"  column_invisible="not parent.show_function"  />
+                                <field name="eif_weight" string="EIF 权重"  column_invisible="not parent.show_function" />
+                                <field name="ei" string="EI" column_invisible="not parent.show_function"  />
+                                <field name="ei_weight" string="EI 权重" column_invisible="not parent.show_function"  />
+                                <field name="eo" string="EO" column_invisible="not parent.show_function"  />
+                                <field name="eo_weight" string="EO 权重" column_invisible="not parent.show_function" />
+                                <field name="eq" string="EQ"  column_invisible="not parent.show_function"  />
+                                <field name="eq_weight" string="EQ 权重" column_invisible="not parent.show_function"  />
                                 <field name="story_point_num" column_invisible="not parent.show_story" />
                                 <field name="loc_num" column_invisible="not parent.show_loc" />
                                 <field name="amount"/>

@@ -77,7 +77,7 @@ class SoftwareScaleLine(models.Model):
     eo_weight = fields.Integer(string='外部输出权重',default=1)
     story_point_num = fields.Many2one('system.data.dictionary',string='故事点数')
     loc_num = fields.Integer(string='代码行数',default=0)
-    amount = fields.Integer(string='明细数量')
+    amount = fields.Integer(string='明细规模数')
     show_function = fields.Boolean(string='是否显示功能点数',default=True,compute='_compute_show_type',store=True)
     show_story = fields.Boolean(string='是否显示故事点数',default=False,compute='_compute_show_type',store=True)
     show_loc = fields.Boolean(string='是否显示代码行数',default=False,compute='_compute_show_type',store=True)
