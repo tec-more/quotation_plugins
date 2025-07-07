@@ -40,10 +40,10 @@
                     </group>
                     <group>
                         <field name="scl_ids">
-                            <list editable="bottom">
+                            <list editable="bottom"  class="full_text_display">
                                 <field name="software_scale_id" column_invisible="True" />
                                 <field name="module_id" />
-                                <field name="ilf" column_invisible="not parent.show_function" />
+                                <field name="ilf" widget="text" column_invisible="not parent.show_function" />
                                 <field name="ilf_weight" column_invisible="not parent.show_function" />
                                 <field name="eif" column_invisible="not parent.show_function"  />
                                 <field name="eif_weight" column_invisible="not parent.show_function" />

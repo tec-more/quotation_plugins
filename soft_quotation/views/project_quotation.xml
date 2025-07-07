@@ -6,10 +6,13 @@
         <field name="arch" type="xml">
             <list>
                 <field name="project_id"/>
-                <field name="parent_id"/>
                 <field name="name"/>
+                <field name="complete_name"/>
+                <field name="parent_id"/>
                 <field name="level"/>
                 <field name="path"/>
+                <field widget="boolean_toggle"  name="is_function_point"/>
+                <field widget="boolean_toggle"  name="is_story_point"/>
                 <field name="status"/>
             </list>
         </field>
@@ -19,21 +22,29 @@
         <field name="model">project.module</field>
         <field name="arch" type="xml">
             <form>
-                <group>
+                <header>
+                    <field name="status" widget="statusbar"/>
+                </header>
+                <sheet>
                     <group>
-                        <field name="project_id"/>
-                        <field name="parent_id"/>
-                        <field name="name" />
+                        <group>
+                            <field name="project_id"/>
+                            <field name="name" />
+                            <field name="complete_name"/>
+                            <field name="parent_id" />
+                        </group>
+                        <group>
+                            <field name="level"/>
+                            <field name="path"/>
+                            <field widget="boolean_toggle"  name="is_function_point"/>
+                            <field widget="boolean_toggle"  name="is_story_point"/>
+<!--                            <field name="status"/>-->
+                        </group>
                     </group>
                     <group>
-                        <field name="level"/>
-                        <field name="path"/>
-                        <field name="status"/>
+                        <field name="note" />
                     </group>
-                </group>
-                <group>
-                    <field name="note" />
-                </group>
+                </sheet>
             </form>
         </field>
     </record>
