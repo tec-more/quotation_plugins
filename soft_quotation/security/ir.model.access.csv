@@ -3,4 +3,6 @@ access_relevant_standard,relevant.standard,model_relevant_standard,base.group_us
 access_software_duration,software.duration,model_software_duration,base.group_user,1,1,1,1
 access_software_quotation,software.quotation.py,model_software_quotation,base.group_user,1,1,1,1
 access_software_scale,software.scale,model_software_scale,base.group_user,1,1,1,1
+access_software_scale_line,software.scale.line,model_software_scale_line,base.group_user,1,1,1,1
 access_software_work_volume,software.work.volume,model_software_work_volume,base.group_user,1,1,1,1
+access_project_module,project_module,model_project_module,base.group_user,1,1,1,1

@@ -18,12 +18,13 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base'],
+    'depends': ['base','project','system_data_dictionary'],
 
     # always loaded
     'data': [
         'security/ir.model.access.csv',
         'views/relevant_standard.xml',
+        'views/project_quotation.xml',
         'views/software_scale.xml',
         'views/software_work_volume.xml',
         'views/software_duration.xml',

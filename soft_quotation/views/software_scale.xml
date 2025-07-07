@@ -1,60 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-  <data>
-    <!-- explicit list view definition -->
-<!--
-    <record model="ir.ui.view" id="soft_quotation.list">
-      <field name="name">soft_quotation list</field>
-      <field name="model">soft_quotation.soft_quotation</field>
-      <field name="arch" type="xml">
-        <list>
-          <field name="name"/>
-          <field name="value"/>
-          <field name="value2"/>
-        </list>
-      </field>
-    </record>
--->
+    <data>
+    <record id="view_quotation_software_scale_list" model="ir.ui.view">
+        <field name="name">software.scale.list</field>
+        <field name="model">software.scale</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="project_id"/>
+<!--                <field name="stage_id"/>-->
+                <field name="scale_type"/>
+                <field name="complexity"/>
+                <field name="quotation_type"/>
+                <field name="scale_amount"/>
+                <field name="status"/>
 
-    <!-- actions opening views on models -->
-<!--
-    <record model="ir.actions.act_window" id="soft_quotation.action_window">
-      <field name="name">soft_quotation window</field>
-      <field name="res_model">soft_quotation.soft_quotation</field>
-      <field name="view_mode">list,form</field>
+            </list>
+        </field>
     </record>
--->
-
-    <!-- server action to the one above -->
-<!--
-    <record model="ir.actions.server" id="soft_quotation.action_server">
-      <field name="name">soft_quotation server</field>
-      <field name="model_id" ref="model_soft_quotation_soft_quotation"/>
-      <field name="state">code</field>
-      <field name="code">
-        action = {
-          "type": "ir.actions.act_window",
-          "view_mode": "list,form",
-          "res_model": model._name,
-        }
-      </field>
+    <record id="view_quotation_software_scale_form" model="ir.ui.view">
+        <field name="name">software.scale.form</field>
+        <field name="model">software.scale</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="status" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="project_id"/>
+    <!--                        <field name="stage_id"/>-->
+                            <field name="scale_type"/>
+                        </group>
+                        <group>
+                            <field name="complexity"/>
+                            <field name="quotation_type"/>
+    <!--                        <field name="scale_amount"/>-->
+                        </group>
+                    </group>
+                    <group>
+                        <field name="scl_ids">
+                            <list editable="bottom">
+                                <field name="software_scale_id" column_invisible="True" />
+                                <field name="module_id" />
+                                <field name="ilf" column_invisible="not parent.show_function" />
+                                <field name="ilf_weight" column_invisible="not parent.show_function" />
+                                <field name="eif" column_invisible="not parent.show_function"  />
+                                <field name="eif_weight" column_invisible="not parent.show_function" />
+                                <field name="ei" column_invisible="not parent.show_function"  />
+                                <field name="ei_weight" column_invisible="not parent.show_function"  />
+                                <field name="eo" column_invisible="not parent.show_function"  />
+                                <field name="eo_weight" column_invisible="not parent.show_function" />
+                                <field name="eq" column_invisible="not parent.show_function"  />
+                                <field name="eq_weight" column_invisible="not parent.show_function"  />
+                                <field name="story_point_num" column_invisible="not parent.show_story" />
+                                <field name="loc_num" column_invisible="not parent.show_loc" />
+                                <field name="amount"/>
+                            </list>
+                        </field>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
     </record>
--->
-
-    <!-- Top menu item -->
-<!--
-    <menuitem name="soft_quotation" id="soft_quotation.menu_root"/>
--->
-    <!-- menu categories -->
-<!--
-    <menuitem name="Menu 1" id="soft_quotation.menu_1" parent="soft_quotation.menu_root"/>
-    <menuitem name="Menu 2" id="soft_quotation.menu_2" parent="soft_quotation.menu_root"/>
--->
-    <!-- actions -->
-<!--
-    <menuitem name="List" id="soft_quotation.menu_1_list" parent="soft_quotation.menu_1"
-              action="soft_quotation.action_window"/>
-    <menuitem name="Server to list" id="soft_quotation" parent="soft_quotation.menu_2"
-              action="soft_quotation.action_server"/>
--->
-  </data>
+        <record id="action_quotation_software_scale" model="ir.actions.act_window">
+            <field name="name">软件规模</field>
+            <field name="res_model">software.scale</field>
+            <field name="view_mode">list,form</field>
+        </record>
+    </data>
 </odoo>

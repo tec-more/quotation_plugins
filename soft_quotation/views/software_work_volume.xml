@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-
+    <data>
+        <record id="action_quotation_software_work_volume" model="ir.actions.act_window">
+            <field name="name">软件工作量</field>
+            <field name="res_model">software.work.volume</field>
+            <field name="view_mode">list,form</field>
+        </record>
+    </data>
 </odoo>

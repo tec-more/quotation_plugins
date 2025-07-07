@@ -1,4 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
+    <data>
+        <menuitem id="menu_quotation_project_module"
+                  name="模块"
+                  parent="project.menu_main_pm"
+                  sequence="1"
+                  action="action_quotation_project_module"
+        />
+        <menuitem id="quotation_menu_root"
+                  name="软件报价管理"
+                  sequence="10"
+                  groups="base.group_user"
+        />
+        <menuitem id="menu_quotation_software_scale"
+                  name="软件规模"
+                  parent="quotation_menu_root"
+                  sequence="10"
+                  action="action_quotation_software_scale"
+        />
+        <menuitem id="menu_quotation_software_work_volume"
+                  name="软件工作量"
+                  parent="quotation_menu_root"
+                  sequence="20"
+                  action="action_quotation_software_work_volume"
+        />
+        <menuitem id="menu_quotation_software_duration"
+                  name="软件工期"
+                  parent="quotation_menu_root"
+                  sequence="30"
+                  action="action_quotation_software_duration"
+        />
+        <menuitem id="menu_quotation_software_quotation"
+                  name="软件报价"
+                  parent="quotation_menu_root"
+                  sequence="40"
+                  action="action_quotation_software_quotation"
+        />
 
+        <menuitem id="menu_quotation_setting"
+                  name="设置"
+                  parent="quotation_menu_root"
+                  sequence="60"
+                  groups="base.group_user"
+        />
+
+        <menuitem id="menu_quotation_relevant_standard"
+                  name="行业标准"
+                  parent="menu_quotation_setting"
+                  sequence="50"
+                  action="action_quotation_relevant_standard"
+        />
+    </data>
 </odoo>
