@@ -50,5 +50,11 @@
                   sequence="50"
                   action="action_quotation_relevant_standard"
         />
+        <menuitem id="menu_quotation_region_hr"
+                  name="地区人才"
+                  parent="menu_quotation_setting"
+                  sequence="60"
+                  action="action_quotation_region_hr"
+        />
     </data>
 </odoo>

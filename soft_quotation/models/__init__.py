@@ -6,5 +6,5 @@ from . import software_quotation
 from . import relevant_standard
 from . import software_scale
 from . import software_work_volume
-
+from . import region_hr
 

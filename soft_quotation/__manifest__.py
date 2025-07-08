@@ -18,7 +18,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','project','system_data_dictionary'],
+    'depends': ['base','project','system_data_dictionary','l10n_cn_city'],
 
     # always loaded
     'data': [
@@ -29,6 +29,7 @@
         'views/software_work_volume.xml',
         'views/software_duration.xml',
         'views/software_quotation.xml',
+        'views/region_hr.xml',
         'views/menus.xml',
     ],
     # only loaded in demonstration mode
