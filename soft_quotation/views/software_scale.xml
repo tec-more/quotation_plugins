@@ -23,6 +23,7 @@
         <field name="arch" type="xml">
             <form>
                 <header>
+                    <button name="import_project_module" string="导入项目模块" type="object" class="oe_highlight"/>
                     <field name="status" widget="statusbar"/>
                 </header>
                 <sheet>
