@@ -14,6 +14,7 @@ class ProjectTask(models.Model):
 
 class ProjectModule(models.Model):
     _name = 'project.module'
+    _rec_name = 'complete_name'
     _description = '项目模块'
 
     project_id = fields.Many2one('project.project', string='项目名')
