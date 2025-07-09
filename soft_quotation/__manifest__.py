@@ -18,7 +18,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base','project','system_data_dictionary','l10n_cn_city'],
+    'depends': ['base','project','system_data_dictionary','l10n_cn_base_city'],
 
     # always loaded
     'data': [
@@ -32,6 +32,7 @@
         'views/region_hr.xml',
         'views/menus.xml',
     ],
+    'application': True,
     # only loaded in demonstration mode
 }
 
