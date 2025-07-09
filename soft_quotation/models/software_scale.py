@@ -82,13 +82,6 @@ class SoftwareScale(models.Model):
         for module in project_modules:
             scl_lines.append((0,0,{
                 'module_id':module.id,
-                # 'ilf':module.ilf,
-                # 'eif':module.eif,
-                # 'eq':module.eq,
-                # 'ei':module.ei,
-                # 'eo':module.eo,
-                # 'story_point_num':module.story_point_num,
-                # 'loc_num':module.loc_num,
                 'show_function':self.show_function,
                 'show_story':self.show_story,
                 'show_loc':self.show_loc,
