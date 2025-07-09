@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-        <record id="view_quotation_region_hr_list" model="ir.ui.view">
+    <record id="view_quotation_region_hr_list" model="ir.ui.view">
         <field name="name">region.hr.list</field>
         <field name="model">region.hr</field>
         <field name="arch" type="xml">
