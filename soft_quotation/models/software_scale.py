@@ -50,7 +50,12 @@ class SoftwareScale(models.Model):
         ('confirm', '确认'),
         ('done', '完成'),
     ],'规模状态',default='draft',tracking=True)
-    cf = fields.Float(string='变更调整因子',tracking=True, help='例如某项目UFP为1000FP，预计50%变更，则CF=1.5，S=1500FP', store=True,default=1)
+    cf = fields.Float(string='变更调整因子',tracking=True,
+                      help='例如某项目UFP为1000FP，预计50%变更，则CF=1.5，S=1500FP;'
+                           '在估算早期（如概算、预算阶段）,规模变更因子取值通常为 1.39;'
+                           '在估算中期（如投标、项目计划阶段），规模变更因子取值通常为 1.21;'
+                           '在估算晚期（如需求分析阶段），规模变更因子取值通常为 1.10;'
+                           '在项目交付后及运维阶段，规模变更因子取值为通常 1.00', store=True,default=1)
     ufp = fields.Float(string='未调整功能点(UFP)', compute='_compute_fp', store=True)
     scale_amount = fields.Float(string='调整后功能点(FP)',compute='_compute_fp',store=True)
     scl_ids = fields.One2many('software.scale.line', 'software_scale_id', string='软件规模明细')
