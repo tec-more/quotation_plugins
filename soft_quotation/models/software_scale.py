@@ -51,10 +51,10 @@ class SoftwareScale(models.Model):
         ('done', '完成'),
     ],'规模状态',default='draft',tracking=True)
     cf = fields.Float(string='变更调整因子',tracking=True,
-                      help='例如某项目UFP为1000FP，预计50%变更，则CF=1.5，S=1500FP;'
-                           '在估算早期（如概算、预算阶段）,规模变更因子取值通常为 1.39;'
-                           '在估算中期（如投标、项目计划阶段），规模变更因子取值通常为 1.21;'
-                           '在估算晚期（如需求分析阶段），规模变更因子取值通常为 1.10;'
+                      help='例如某项目UFP为1000FP，预计50%变更，则CF=1.5，S=1500FP;\n'
+                           '在估算早期（如概算、预算阶段）,规模变更因子取值通常为 1.39;\n'
+                           '在估算中期（如投标、项目计划阶段），规模变更因子取值通常为 1.21;\n'
+                           '在估算晚期（如需求分析阶段），规模变更因子取值通常为 1.10;\n'
                            '在项目交付后及运维阶段，规模变更因子取值为通常 1.00', store=True,default=1)
     ufp = fields.Float(string='未调整功能点(UFP)', compute='_compute_fp', store=True)
     scale_amount = fields.Float(string='调整后功能点(FP)',compute='_compute_fp',store=True)
@@ -84,6 +84,7 @@ class SoftwareScale(models.Model):
             record.ufp = sum([item.amount for item in record.scl_ids])
             record.scale_amount = record.ufp * record.cf
 
+    # 导入软件模块
     def import_project_module(self):
         logging.info('导入项目模块')
         domain = [('project_id', '=', self.project_id.id)]
@@ -105,6 +106,15 @@ class SoftwareScale(models.Model):
         self.scl_ids = scl_lines
         pass
 
+    # 确认软件规模
+    def confirm_software_scale(self):
+        self.status = 'confirm'
+    # 软件规模审批-同意
+    def approve_software_scale(self):
+        self.status = 'done'
+    # 软件规模审批-拒绝
+    def reject_software_scale(self):
+        self.status = 'draft'
 
 class SoftwareScaleLine(models.Model):
     _name = 'software.scale.line'

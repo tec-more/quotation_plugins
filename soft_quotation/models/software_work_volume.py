@@ -1,11 +1,48 @@
 # -*- coding: utf-8 -*-
+import logging
 from datetime import datetime
+from email.policy import default
+
 from odoo import models, fields, api
 
 
 class WorkVolume(models.Model):
     _name = 'software.work.volume'
     _description = '工作量'
+
+    software_scale_id = fields.Many2one('software.scale', string='软件规模')
+    name = fields.Char(related='software_scale_id.name',string='名称')
+    # AE = (S * PDR) * SWF * RDF
+    # AE（Adjust Effort）: 调整后的估算工作量，单位为人时（person-hour）
+    # S（Size）: 调整后的软件规模，单位为功能点（Function Point, FP）
+    # PDR（Productivity Rate）: 功能点耗时率，即生产率，单位为人时/功能点(person-hour/FP)
+    # SWF（Software Factor）: 软件因素调整因子，反应软件特性对工作量的影响
+    # RDF（Development Factor）: 开发因素调整因子，反应开发环境对工作量的影响，通常无特殊要求时取值为1
+    s = fields.Float(related='software_scale_id.scale_amount',string='软件规模(S)',help='单位:功能点(FP)',store=True)
+    pdr = fields.Float(string='功能点耗时率(PDR)',help='单位:人时/功能点(person-hour/FP)',default=1)
+    swf = fields.Float(string='软件因素调整因子(SWF)',help='软件因素调整因子，反应软件特性对工作量的影响',default=1)
+    rdf = fields.Float(string='开发因素调整因子(RDF)',help='开发因素调整因子，反应开发环境对工作量的影响',default=1)
+    ae = fields.Float(string='调整后的估算工作量(AE)',compute='_compute_ae',help='单位:人时',store=True)
+    ae_min = fields.Float(string='估算工作量最小值',compute='_compute_ae',store=True)
+    ae_max = fields.Float(string='估算工作量最大值',compute='_compute_ae',store=True)
+    ae_possible = fields.Float(string='调整后的估算工作量最可能值',store=True,default=0)
+    @api.depends('software_scale_id','s','pdr','swf','rdf')
+    def _compute_ae(self):
+        last_year = datetime.now().year -1
+        logging.info("年份:%s",last_year)
+        pdr_env = self.env['software.production.date.rate'].sudo()
+        for record in self:
+            # 取生产率数据
+            if record.software_scale_id:
+                logging.info("行业:%s",record.software_scale_id.profession)
+                pdr_obj = pdr_env.search([('profession','=',record.software_scale_id.profession.id),('year','=',last_year)],limit=1)
+                # 取生产率的中位数P50
+                # logging.info("software_scale_id:%s",record.software_scale_id.scale_amount)
+                logging.info("软件规模:%s,生产率:%s,软件因子:%s,开发因子:%s",record.s,pdr_obj.p50,record.swf,record.rdf)
+                record.pdr = pdr_obj.p50
+                record.ae = record.s * pdr_obj.p50 * record.swf * record.rdf
+                record.ae_min = record.s * pdr_obj.p25 * record.swf * record.rdf
+                record.ae_max = record.s * pdr_obj.p75 * record.swf * record.rdf
 
 
 class ProductionDateRate(models.Model):
