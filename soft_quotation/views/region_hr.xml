@@ -5,6 +5,7 @@
         <field name="model">region.hr</field>
         <field name="arch" type="xml">
             <list>
+                <field name="year"/>
                 <field name="job_position"/>
                 <field name="res_country"/>
                 <field name="province"/>
@@ -22,6 +23,7 @@
                 <sheet>
                     <group>
                         <group>
+                            <field name="year"/>
                             <field name="job_position"/>
                             <field name="job_level"/>
                             <field name="average_salary"/>
