@@ -7,6 +7,7 @@
         <field name="arch" type="xml">
             <list>
                 <field name="project_id"/>
+                <field name="profession"/>
 <!--                <field name="stage_id"/>-->
                 <field name="scale_type"/>
                 <field name="complexity"/>
@@ -30,13 +31,15 @@
                     <group>
                         <group>
                             <field name="project_id"/>
-    <!--                        <field name="stage_id"/>-->
                             <field name="scale_type"/>
-                        </group>
-                        <group>
                             <field name="complexity"/>
                             <field name="quotation_type"/>
-    <!--                        <field name="scale_amount"/>-->
+
+                        </group>
+                        <group>
+                            <field name="cf"/>
+                            <field name="ufp"/>
+                            <field name="scale_amount"/>
                         </group>
                     </group>
                     <group>

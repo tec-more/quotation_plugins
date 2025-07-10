@@ -7,3 +7,4 @@ access_software_scale_line,software.scale.line,model_software_scale_line,base.gr
 access_software_work_volume,software.work.volume,model_software_work_volume,base.group_user,1,1,1,1
 access_project_module,project_module,model_project_module,base.group_user,1,1,1,1
 access_region_hr,region_hr,model_region_hr,base.group_user,1,1,1,1
+access_software_production_date_rate,software_production_date_rate,model_software_production_date_rate,base.group_user,1,1,1,1

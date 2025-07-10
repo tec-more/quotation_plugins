@@ -56,5 +56,10 @@
                   sequence="60"
                   action="action_quotation_region_hr"
         />
+        <menuitem id="menu_software_production_date_rate"
+                  name="生产效率"
+                  parent="menu_quotation_setting"
+                  sequence="70"
+                  action="action_software_production_date_rate"/>
     </data>
 </odoo>

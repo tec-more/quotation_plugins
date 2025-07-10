@@ -1,6 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
+        <record id="view_software_production_date_rate_list" model="ir.ui.view">
+            <field name="name">software.production.date.rate.list</field>
+            <field name="model">software.production.date.rate</field>
+            <field name="arch" type="xml">
+                <list editable="bottom">
+                    <field name="profession"/>
+                    <field name="soft_stage"/>
+                    <field name="year"/>
+                    <field name="p10"/>
+                    <field name="p25"/>
+                    <field name="p50"/>
+                    <field name="p75"/>
+                    <field name="p90"/>
+                </list>
+            </field>
+        </record>
+        <record id="action_software_production_date_rate" model="ir.actions.act_window">
+            <field name="name">软件生产效率</field>
+            <field name="res_model">software.production.date.rate</field>
+            <field name="view_mode">list,form</field>
+        </record>
         <record id="action_quotation_software_work_volume" model="ir.actions.act_window">
             <field name="name">软件工作量</field>
             <field name="res_model">software.work.volume</field>
