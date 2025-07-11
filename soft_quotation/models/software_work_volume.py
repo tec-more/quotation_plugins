@@ -31,9 +31,11 @@ class WorkVolume(models.Model):
 
     maintenance_factor = fields.Float(string='软件维护因素调整因子(MDF)',help='取值范围(0.15~0.20)',default=0.15
                                       )
+    # 运维工作量包含了运维团队在限定运维周期（一年）内所有运维活动
+    # （如优化完善、例行操作、响应支持、调研评估）
+    # 及相关的管理和支持活动所耗费的工作量
     maintenance_ae = fields.Float(string='软件维护工作量(MDF)',compute='_compute_ae',store=True)
 
-    @api.model
     def create(self, vals):
         """ 创建时默认设置软件阶段为开发 """
         obj = super(WorkVolume, self).create(vals)
@@ -43,7 +45,7 @@ class WorkVolume(models.Model):
 
     def write(self, vals):
         result = super(WorkVolume, self).write(vals)
-        if result:
+        if len(vals)>0:
             self.software_scale_id.write({'swv_id':self.id})
         return result
     @api.depends('software_scale_id','s','pdr','swf','rdf')
@@ -51,11 +53,16 @@ class WorkVolume(models.Model):
         last_year = datetime.now().year -1
         logging.info("年份:%s",last_year)
         pdr_env = self.env['software.production.date.rate'].sudo()
+
+        soft_stage_obj1 = self.env['system.data.dictionary'].sudo().search([('category', '=', '软件阶段'),('name','=','开发')],limit=1)
+        soft_stage_obj2 = self.env['system.data.dictionary'].sudo().search([('category', '=', '软件阶段'),('name','=','运维')],limit=1)
+
         for record in self:
             # 取生产率数据
             if record.software_scale_id:
                 logging.info("行业:%s",record.software_scale_id.profession)
-                pdr_obj = pdr_env.search([('profession','=',record.software_scale_id.profession.id),('year','=',last_year)],limit=1)
+                pdr_obj = pdr_env.search([('profession','=',record.software_scale_id.profession.id),('soft_stage','=',soft_stage_obj1.id),('year','=',last_year)],limit=1)
+                maintenance_pdr_obj = pdr_env.search([('profession','=',record.software_scale_id.profession.id),('soft_stage','=',soft_stage_obj2.id),('year','=',last_year)],limit=1)
                 # 取生产率的中位数P50
                 # logging.info("software_scale_id:%s",record.software_scale_id.scale_amount)
                 logging.info("软件规模:%s,生产率:%s,软件因子:%s,开发因子:%s",record.s,pdr_obj.p50,record.swf,record.rdf)
@@ -63,8 +70,7 @@ class WorkVolume(models.Model):
                 record.ae = record.s * pdr_obj.p50 * record.swf * record.rdf
                 record.ae_min = record.s * pdr_obj.p25 * record.swf * record.rdf
                 record.ae_max = record.s * pdr_obj.p75 * record.swf * record.rdf
-                ae_temp = record.ae_possible if record.ae_possible > 0 else record.ae
-                record.maintenance_ae = ae_temp * record.maintenance_factor
+                record.maintenance_ae = record.s * maintenance_pdr_obj.p50 * record.maintenance_factor
 
 
 class ProductionDateRate(models.Model):

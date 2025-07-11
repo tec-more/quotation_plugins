@@ -1,6 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
+                <record id="view_quotation_software_quotation_list" model="ir.ui.view">
+            <field name="name">software.quotation.list</field>
+            <field name="model">software.quotation</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="software_scale_id"/>
+                    <field name="person_num"/>
+                    <field name="work_duration"/>
+                    <field name="person_price"/>
+                    <field name="other_price"/>
+                    <field name="total_amount"/>
+                </list>
+            </field>
+        </record>
+        <record id="view_quotation_software_quotation_form" model="ir.ui.view">
+            <field name="name">software.quotation.form</field>
+            <field name="model">software.quotation</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="software_scale_id"/>
+                                <field name="person_num"/>
+                                <field name="work_duration"/>
+                                <field name="maintenance_price"/>
+                                <field name="person_price"/>
+                                <field name="other_price"/>
+                            </group>
+                            <group>
+                                <field name="software_develop_total"/>
+                                <field name="software_maintenance_total"/>
+                                <field name="total_amount"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
         <record id="action_quotation_software_quotation" model="ir.actions.act_window">
             <field name="name">软件报价</field>
             <field name="res_model">software.quotation</field>
