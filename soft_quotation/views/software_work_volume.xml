@@ -59,6 +59,8 @@
                                 <field name="ae_min"/>
                                 <field name="ae_max"/>
                                 <field name="ae_possible"/>
+                                <field name="maintenance_factor"/>
+                                <field name="maintenance_ae"/>
                             </group>
                         </group>
                     </sheet>

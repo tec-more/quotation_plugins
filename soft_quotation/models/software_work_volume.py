@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 import logging
+import typing
 from datetime import datetime
 from email.policy import default
 
 from odoo import models, fields, api
+from odoo.api import ValuesType
 
 
 class WorkVolume(models.Model):
@@ -26,6 +28,24 @@ class WorkVolume(models.Model):
     ae_min = fields.Float(string='估算工作量最小值',compute='_compute_ae',store=True)
     ae_max = fields.Float(string='估算工作量最大值',compute='_compute_ae',store=True)
     ae_possible = fields.Float(string='调整后的估算工作量最可能值',store=True,default=0)
+
+    maintenance_factor = fields.Float(string='软件维护因素调整因子(MDF)',help='取值范围(0.15~0.20)',default=0.15
+                                      )
+    maintenance_ae = fields.Float(string='软件维护工作量(MDF)',compute='_compute_ae',store=True)
+
+    @api.model
+    def create(self, vals):
+        """ 创建时默认设置软件阶段为开发 """
+        obj = super(WorkVolume, self).create(vals)
+        if obj:
+            self.software_scale_id.write({'swv_id':obj.id})
+        return obj
+
+    def write(self, vals):
+        result = super(WorkVolume, self).write(vals)
+        if result:
+            self.software_scale_id.write({'swv_id':self.id})
+        return result
     @api.depends('software_scale_id','s','pdr','swf','rdf')
     def _compute_ae(self):
         last_year = datetime.now().year -1
@@ -43,6 +63,8 @@ class WorkVolume(models.Model):
                 record.ae = record.s * pdr_obj.p50 * record.swf * record.rdf
                 record.ae_min = record.s * pdr_obj.p25 * record.swf * record.rdf
                 record.ae_max = record.s * pdr_obj.p75 * record.swf * record.rdf
+                ae_temp = record.ae_possible if record.ae_possible > 0 else record.ae
+                record.maintenance_ae = ae_temp * record.maintenance_factor
 
 
 class ProductionDateRate(models.Model):

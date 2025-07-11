@@ -50,6 +50,8 @@ class SoftwareScale(models.Model):
         ('confirm', '确认'),
         ('done', '完成'),
     ],'规模状态',default='draft',tracking=True)
+
+
     cf = fields.Float(string='变更调整因子',tracking=True,
                       help='例如某项目UFP为1000FP，预计50%变更，则CF=1.5，S=1500FP;\n'
                            '在估算早期（如概算、预算阶段）,规模变更因子取值通常为 1.39;\n'
@@ -59,9 +61,11 @@ class SoftwareScale(models.Model):
     ufp = fields.Float(string='未调整功能点(UFP)', compute='_compute_fp', store=True)
     scale_amount = fields.Float(string='调整后功能点(FP)',compute='_compute_fp',store=True)
     scl_ids = fields.One2many('software.scale.line', 'software_scale_id', string='软件规模明细')
+    swv_id = fields.Many2one('software.work.volume', string='工作量')
     show_function = fields.Boolean(string='是否显示功能点数',default=True,compute='_compute_show_type',store=True)
     show_story = fields.Boolean(string='是否显示故事点数',default=False,compute='_compute_show_type',store=True)
     show_loc = fields.Boolean(string='是否显示代码行数',default=False,compute='_compute_show_type',store=True)
+
 
     @api.depends('scale_type')
     def _compute_show_type(self):
