@@ -31,6 +31,7 @@ class WorkVolume(models.Model):
     ae_max = fields.Float(string='估算工作量最大值',compute='_compute_ae',store=True)
     story_num = fields.Float(related='software_scale_id.story_amount',string='故事点数(SP)', store=True)
     story_factor = fields.Float(string='故事点数调整因子(SIF)',help='取值范围(0.5~1.5)',default=1)
+    story_complexity = fields.Float(string='故事点复杂度调整因子',help='取值范围(0.5~1.5)',default=1)
     ae_possible = fields.Float(string='调整后的估算工作量最可能值',store=True,default=0)
 
     maintenance_factor = fields.Float(string='软件维护因素调整因子(MDF)',help='取值范围(0.15~0.20)',default=0.15
@@ -78,7 +79,7 @@ class WorkVolume(models.Model):
                 record.maintenance_ae = record.s * maintenance_pdr_obj.p50 * record.maintenance_factor
             elif record.software_scale_id and record.software_scale_id.scale_type == 'story_point':
                 sp_obj = sp_env.search([('profession','=',record.software_scale_id.profession.id),('soft_stage','=',soft_stage_obj1.id),('year','=',last_year)],limit=1)
-                record.ae = record.story_factor * record.story_num*sp_obj.ps
+                record.ae = record.story_factor*record.story_complexity * record.story_num*sp_obj.ps
 
 
 class ProductionDateRate(models.Model):
