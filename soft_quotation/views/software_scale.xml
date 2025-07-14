@@ -12,7 +12,8 @@
                 <field name="scale_type"/>
                 <field name="complexity"/>
                 <field name="quotation_type"/>
-                <field name="scale_amount"/>
+                <field name="scale_amount" column_invisible="context.get('scale_type')  in  ('function_point')"/>
+                <field name="story_amount" column_invisible="context.get('scale_type') not in ('function_point')"/>
                 <field name="status"/>
 
             </list>
@@ -59,7 +60,7 @@
                                 <field name="eq_weight" string="EQ 权重" column_invisible="not parent.show_function"  />
                                 <field name="story_point_num" column_invisible="not parent.show_story" />
                                 <field name="loc_num" column_invisible="not parent.show_loc" />
-                                <field name="amount"/>
+                                <field name="amount" column_invisible="not parent.show_story" />
                             </list>
                         </field>
                     </group>

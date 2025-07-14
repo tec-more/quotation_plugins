@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+        <record id="view_software_story_point_base_list" model="ir.ui.view">
+            <field name="name">software.story.point.base.list</field>
+            <field name="model">software.story.point.base</field>
+            <field name="arch" type="xml">
+                <list editable="bottom">
+                    <field name="profession"/>
+                    <field name="soft_stage"/>
+                    <field name="team"/>
+                    <field name="year"/>
+                    <field name="ps"/>
+                </list>
+            </field>
+        </record>
+        <record id="action_software_story_point_base" model="ir.actions.act_window">
+            <field name="name">软件生产效率</field>
+            <field name="res_model">software.story.point.base</field>
+            <field name="view_mode">list</field>
+        </record>
+</odoo>

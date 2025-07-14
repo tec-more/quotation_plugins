@@ -61,5 +61,10 @@
                   parent="menu_quotation_setting"
                   sequence="70"
                   action="action_software_production_date_rate"/>
+        <menuitem id="menu_software_story_point_base"
+                  name="团队基准故事点"
+                  parent="menu_quotation_setting"
+                  sequence="70"
+                  action="action_software_story_point_base"/>
     </data>
 </odoo>

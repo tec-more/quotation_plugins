@@ -8,3 +8,4 @@ access_software_work_volume,software.work.volume,model_software_work_volume,base
 access_project_module,project_module,model_project_module,base.group_user,1,1,1,1
 access_region_hr,region_hr,model_region_hr,base.group_user,1,1,1,1
 access_software_production_date_rate,software_production_date_rate,model_software_production_date_rate,base.group_user,1,1,1,1
+access_software_story_point_base,software_story_point_base,model_software_story_point_base,base.group_user,1,1,1,1

@@ -30,6 +30,7 @@
         'views/software_duration.xml',
         'views/software_quotation.xml',
         'views/region_hr.xml',
+        'views/software_story_point_base.xml',
         'views/menus.xml',
     ],
     'application': True,

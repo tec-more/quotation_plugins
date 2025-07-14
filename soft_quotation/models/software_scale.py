@@ -60,6 +60,7 @@ class SoftwareScale(models.Model):
                            '在项目交付后及运维阶段，规模变更因子取值为通常 1.00', store=True,default=1)
     ufp = fields.Float(string='未调整功能点(UFP)', compute='_compute_fp', store=True)
     scale_amount = fields.Float(string='调整后功能点(FP)',compute='_compute_fp',store=True)
+    story_amount = fields.Float(string='故事点数(SP)', compute='_compute_fp', store=True)
     scl_ids = fields.One2many('software.scale.line', 'software_scale_id', string='软件规模明细')
     swv_id = fields.Many2one('software.work.volume', string='工作量')
     sd_id = fields.Many2one('software.duration', string='软件工期')
@@ -167,6 +168,7 @@ class SoftwareScaleLine(models.Model):
                     record.amount = record.ilf_weight*record.ilf + record.eif_weight*record.eif + record.eq_weight*record.eq + record.ei_weight*record.ei + record.eo_weight*record.eo
             elif record.software_scale_id.scale_type == 'story_point':
                 # 斐波拉契数列,每个故事点的子故事点不超过5层，如果超过5层则需要进行拆分
-                record.amount = int(record.story_point_num.name)
+                # record.amount = int(record.story_point_num.name)
+                record.story_amount = int(record.story_point_num.name)
             elif record.software_scale_id.scale_type == 'loc':
                 record.amount = record.loc_num/50

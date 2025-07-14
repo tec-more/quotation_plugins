@@ -14,6 +14,7 @@ class WorkVolume(models.Model):
 
     software_scale_id = fields.Many2one('software.scale', string='软件规模')
     name = fields.Char(related='software_scale_id.name',string='名称')
+    scale_type = fields.Char(releated='software_scale_id.scale_type', string='评估方式',store=True)
     # AE = (S * PDR) * SWF * RDF
     # AE（Adjust Effort）: 调整后的估算工作量，单位为人时（person-hour）
     # S（Size）: 调整后的软件规模，单位为功能点（Function Point, FP）
@@ -21,12 +22,15 @@ class WorkVolume(models.Model):
     # SWF（Software Factor）: 软件因素调整因子，反应软件特性对工作量的影响
     # RDF（Development Factor）: 开发因素调整因子，反应开发环境对工作量的影响，通常无特殊要求时取值为1
     s = fields.Float(related='software_scale_id.scale_amount',string='软件规模(S)',help='单位:功能点(FP)',store=True)
+
     pdr = fields.Float(string='功能点耗时率(PDR)',help='单位:人时/功能点(person-hour/FP)',default=1)
     swf = fields.Float(string='软件因素调整因子(SWF)',help='软件因素调整因子，反应软件特性对工作量的影响',default=1)
     rdf = fields.Float(string='开发因素调整因子(RDF)',help='开发因素调整因子，反应开发环境对工作量的影响',default=1)
     ae = fields.Float(string='调整后的估算工作量(AE)',compute='_compute_ae',help='单位:人时',store=True)
     ae_min = fields.Float(string='估算工作量最小值',compute='_compute_ae',store=True)
     ae_max = fields.Float(string='估算工作量最大值',compute='_compute_ae',store=True)
+    story_num = fields.Float(related='software_scale_id.story_amount',string='故事点数(SP)', store=True)
+    story_factor = fields.Float(string='故事点数调整因子(SIF)',help='取值范围(0.5~1.5)',default=1)
     ae_possible = fields.Float(string='调整后的估算工作量最可能值',store=True,default=0)
 
     maintenance_factor = fields.Float(string='软件维护因素调整因子(MDF)',help='取值范围(0.15~0.20)',default=0.15
@@ -53,13 +57,14 @@ class WorkVolume(models.Model):
         last_year = datetime.now().year -1
         logging.info("年份:%s",last_year)
         pdr_env = self.env['software.production.date.rate'].sudo()
+        sp_env = self.env['software.story.point.base'].sudo()
 
         soft_stage_obj1 = self.env['system.data.dictionary'].sudo().search([('category', '=', '软件阶段'),('name','=','开发')],limit=1)
         soft_stage_obj2 = self.env['system.data.dictionary'].sudo().search([('category', '=', '软件阶段'),('name','=','运维')],limit=1)
 
         for record in self:
             # 取生产率数据
-            if record.software_scale_id:
+            if record.software_scale_id and record.software_scale_id.scale_type != 'story_point':
                 logging.info("行业:%s",record.software_scale_id.profession)
                 pdr_obj = pdr_env.search([('profession','=',record.software_scale_id.profession.id),('soft_stage','=',soft_stage_obj1.id),('year','=',last_year)],limit=1)
                 maintenance_pdr_obj = pdr_env.search([('profession','=',record.software_scale_id.profession.id),('soft_stage','=',soft_stage_obj2.id),('year','=',last_year)],limit=1)
@@ -71,6 +76,9 @@ class WorkVolume(models.Model):
                 record.ae_min = record.s * pdr_obj.p25 * record.swf * record.rdf
                 record.ae_max = record.s * pdr_obj.p75 * record.swf * record.rdf
                 record.maintenance_ae = record.s * maintenance_pdr_obj.p50 * record.maintenance_factor
+            elif record.software_scale_id and record.software_scale_id.scale_type == 'story_point':
+                sp_obj = sp_env.search([('profession','=',record.software_scale_id.profession.id),('soft_stage','=',soft_stage_obj1.id),('year','=',last_year)],limit=1)
+                record.ae = record.story_factor * record.story_num*sp_obj.ps
 
 
 class ProductionDateRate(models.Model):
@@ -93,3 +101,20 @@ class ProductionDateRate(models.Model):
     p50 = fields.Float(string='P50', help='单位:人时/功能点')
     p75 = fields.Float(string='P75', help='单位:人时/功能点')
     p90 = fields.Float(string='P90', help='单位:人时/功能点')
+
+class SoftwareStoryPointBase(models.Model):
+    _name = 'software.story.point.base'
+    _description = '软件开发基准故事点'
+
+    def _get_years(self):
+        """ 动态生成最近10年的年份选项 """
+        current_year = datetime.now().year
+        return [(str(year), str(year)) for year in range(current_year - 10, current_year + 1)]
+    profession = fields.Many2one('system.data.dictionary',string='行业',domain='[("category","=","行业")]')
+    soft_stage = fields.Many2one('system.data.dictionary',string='软件阶段',domain='[("category","=","软件阶段")]')
+    team = fields.Many2one('hr.department',string='团队')
+    year = fields.Selection(
+        selection=lambda self: self._get_years(),
+        string='年份'
+    )
+    ps = fields.Float(string='故事点基准',help='单位:人时/故事点')
