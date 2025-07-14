@@ -169,4 +169,4 @@ class SoftwareScaleLine(models.Model):
                 # 斐波拉契数列,每个故事点的子故事点不超过5层，如果超过5层则需要进行拆分
                 record.amount = int(record.story_point_num.name)
             elif record.software_scale_id.scale_type == 'loc':
-                record.amount = record.loc_num
+                record.amount = record.loc_num/50
