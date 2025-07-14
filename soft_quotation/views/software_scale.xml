@@ -14,7 +14,7 @@
                 <field name="quotation_type"/>
                 <field name="scale_amount" column_invisible="context.get('scale_type')  in  ('function_point')"/>
                 <field name="story_amount" column_invisible="context.get('scale_type') not in ('function_point')"/>
-                <field name="status"/>
+<!--                <field name="status"/>-->
 
             </list>
         </field>
@@ -26,7 +26,7 @@
             <form>
                 <header>
                     <button name="import_project_module" string="导入项目模块" type="object" class="oe_highlight"/>
-                    <field name="status" widget="statusbar"/>
+<!--                    <field name="status" widget="statusbar"/>-->
                 </header>
                 <sheet>
                     <group>
