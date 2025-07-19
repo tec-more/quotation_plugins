@@ -1,0 +1,29 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* analytic
+#
+# Translators:
+# Wil Odoo, 2024
+# kunqing shi, 2025
+# Chloe Wang, 2025
+# 何彬 <vnsoft.he@gmail.com>, 2025
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-04-07 20:36+0000\n"
+"PO-Revision-Date: 2024-09-25 09:41+0000\n"
+"Last-Translator: 贺攀 <yuqian_go@outlook.com>, 2025\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: frappe_gantt_integration
+#: model:ir.model.fields.selection,name:frappe_gantt_integration.selection__ir_actions_act_window_view__view_mode__frappe_gantt
+#: model:ir.model.fields.selection,name:frappe_gantt_integration.selection__ir_ui_view__type__frappe_gantt
+#: model_terms:ir.ui.view,arch_db:frappe_gantt_integration.view_frappe_gantt_type
+msgid "Frappe Gantt"
+msgstr "甘特图"

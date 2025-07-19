@@ -1,0 +1,24 @@
+.frappe-gantt-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .frappe-gantt-chart {
+        flex: 1;
+        min-height: 0; // 修复 flex 布局问题
+
+        #frappe_gantt {
+            height: 100% !important;
+
+            // 确保 Gantt 内部容器继承高度
+            .gantt-container {
+                height: 100% !important;
+
+                .gantt-side-content,
+                .gantt-main-container {
+                    height: 100% !important;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="frappe_gantt_integration.FrappeGanttController" owl="1">
+            <div t-att-class="className" t-ref="frappe_gantt">
+                <Layout className="model.useSampleModel ? 'o_view_sample_data' : ''"  display="props.display">
+                    <t t-set-slot="control-panel-create-button">
+                        <t t-if="canCreate and props.showButtons">
+                            <button type="button" class="btn btn-primary o-kanban-button-new" accesskey="c" t-on-click="() => this.createRecord()" data-bounce-button="">
+                                New
+                            </button>
+                        </t>
+                    </t>
+
+                    <t t-set-slot="control-panel-additional-actions">
+                        <CogMenu/>
+                    </t>
+                    <t t-set-slot="layout-actions">
+                        <SearchBar toggler="searchBarToggler"/>
+                    </t>
+                    <!-- 添加调试标记 -->
+                    <t t-set-slot="control-panel-navigation-additional">
+                        <t t-if="searchBarToggler" t-component="searchBarToggler.component" t-props="searchBarToggler.props"/>
+                    </t>
+
+                    <div class="frappe-gantt-container">
+                        <div class="frappe-gantt-chart">
+                            <div id="frappe_gantt">
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </Layout>
+            </div>
+    </t>
+</templates>

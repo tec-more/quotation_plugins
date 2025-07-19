@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="frappe_gantt_integration.FrappeGanttRenderer" owl="1">
+        <div class="frappe-gantt-container">
+            <t t-if="state.loading">
+                <div class="text-center p-4">
+                    <i class="fa fa-spinner fa-spin"/> Loading Gantt Chart...
+                </div>
+            </t>
+            <t t-else="">
+                <div t-ref="gantt" class="frappe-gantt-chart"/>
+            </t>
+        </div>
+    </t>
+</templates>

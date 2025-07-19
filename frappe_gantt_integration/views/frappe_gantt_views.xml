@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- 注册视图类型 -->
+    <record id="view_frappe_gantt_type" model="ir.ui.view">
+        <field name="name">frappe.gantt.view.type</field>
+        <field name="model">ir.ui.view</field>
+        <field name="inherit_id" ref="base.view_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='type']" position="attributes">
+                <attribute name="selection_add">
+                    <item value="frappe_gantt">Frappe Gantt</item>
+                </attribute>
+            </xpath>
+        </field>
+    </record>
+
+     <record id="view_project_task_frappe_gantt" model="ir.ui.view">
+        <field name="name">project.task.frappe.gantt</field>
+        <field name="model">project.task</field>
+        <field name="type">frappe_gantt</field>
+        <field name="arch" type="xml">
+            <frappe_gantt>
+            </frappe_gantt>
+        </field>
+    </record>
+
+
+    <!-- 4. 添加frappe_gantt视图模式到现有动作 -->
+    <record id="action_view_all_task_add_gantt" model="ir.actions.act_window.view">
+        <field name="sequence" eval="30"/>
+        <field name="view_mode">frappe_gantt</field>
+        <field name="view_id" ref="view_project_task_frappe_gantt"/>
+        <field name="act_window_id" ref="project.action_view_all_task"/>
+    </record>
+    <record id="action_view_my_task_add_gantt" model="ir.actions.act_window.view">
+        <field name="sequence" eval="40"/>
+        <field name="view_mode">frappe_gantt</field>
+        <field name="view_id" ref="view_project_task_frappe_gantt"/>
+        <field name="act_window_id" ref="project.action_view_my_task"/>
+    </record>
+
+</odoo>
